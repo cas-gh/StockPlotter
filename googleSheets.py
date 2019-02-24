@@ -33,7 +33,7 @@ from google.auth.transport.requests import Request
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
-# The ID and range of a sample spreadsheet.
+# The ID and range of a spreadsheet.
 SPREADSHEET_ID = 'SPREADSHEET_ID'
 RANGE_NAME = 'RANGE_NAME'
 
