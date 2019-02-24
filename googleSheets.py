@@ -34,8 +34,8 @@ from google.auth.transport.requests import Request
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
 # The ID and range of a sample spreadsheet.
-SPREADSHEET_ID = '19ctqz8n-LmjEzvVPwyyfIoJ9V53UhxnxNVPqe_ydctU'
-RANGE_NAME = 'A2:E'
+SPREADSHEET_ID = 'SPREADSHEET_ID'
+RANGE_NAME = 'RANGE_NAME'
 
 # dictionaries containing 'date': stock_price as 'key': value pairs
 tsla_dict = {}
