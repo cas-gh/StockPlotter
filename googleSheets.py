@@ -83,7 +83,10 @@ def main():
 
 def pricePlot(stockName, multiple=False):
     # Takes a a name of a stock and plots a line graph of the data
-
+    # The multiple argument is an optional argument that determines
+    # whether or not multiple sources of data need to be graphed 
+    # based on the user's input.
+    
     stockDict = None
     stockDict2 = None
     if stockName == 'tesla':
