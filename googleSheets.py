@@ -12,6 +12,8 @@ by me. It is from the example provided by Google on how to
 use their Sheets API.
 
 TODO:
+0) Write a function that calculates the highest possible theoretical
+   return percentage based on increments of at least a day.
 1) Make graph look nicer (e.g. gridlines, colors, etc.)
 2) MAYBE try and get some more data. Don't spend too much time on that.
 
@@ -19,14 +21,13 @@ TODO:
 
 ###### IMPORTS ######
 
-import pickle
 import os.path
+import pickle
+
 import matplotlib.pyplot as plt
-
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
 
 ###### GLOBAL DECLARATIONS ######
 
@@ -34,8 +35,8 @@ from google.auth.transport.requests import Request
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
 # The ID and range of a spreadsheet.
-SPREADSHEET_ID = 'SPREADSHEET_ID'
-RANGE_NAME = 'RANGE_NAME'
+SPREADSHEET_ID = '19ctqz8n-LmjEzvVPwyyfIoJ9V53UhxnxNVPqe_ydctU'
+RANGE_NAME = 'A2:E'
 
 # dictionaries containing 'date': stock_price as 'key': value pairs
 tsla_dict = {}
@@ -82,11 +83,11 @@ def main():
                 amzn_dict[row[0]] = row[3]
 
 def pricePlot(stockName, multiple=False):
-    # Takes a a name of a stock and plots a line graph of the data
+    # Takes a a name of a stock and plots a line graph of the data.
     # The multiple argument is an optional argument that determines
     # whether or not multiple sources of data need to be graphed 
     # based on the user's input.
-    
+
     stockDict = None
     stockDict2 = None
     if stockName == 'tesla':
@@ -104,7 +105,9 @@ def pricePlot(stockName, multiple=False):
         price_lst.append(float(stockDict[key])) 
     for key in stockDict:
         date_lst.append(key)
-    
+
+    # Makes a second price list if user wants multiple stock's info
+    # graphed at once.
     price_lst2 = []
     if multiple == True:
         for key in stockDict2:
@@ -114,7 +117,7 @@ def pricePlot(stockName, multiple=False):
     # the total amount of dates available
     x_axis_dates = []
     count = 0
-    for i in range(12):
+    for i in range(13):
         x_axis_dates.append(date_lst[count])
         count += len(date_lst) // 12
 
@@ -138,15 +141,16 @@ def pricePlot(stockName, multiple=False):
         plt.plot(date_lst, price_lst2, label = "Tesla")
     else:
         plt.plot(date_lst, price_lst)
-    plt.title(title)
+    plt.title(title, fontsize=18)
+    plt.xlabel('Date', fontsize=18)
+    plt.ylabel('Price', fontsize=18)
     plt.xticks(x_axis_dates)
     if multiple == True:
-        plt.subplots_adjust(left=0.08, bottom=0.05, right=0.95, top=0.90)
+        plt.subplots_adjust(left=0.08, bottom=0.10, right=0.95, top=0.95)
     else:
         plt.subplots_adjust(left=0.08, bottom=0.25, right=0.95,top=0.70)
     plt.legend()
     plt.show()
-
 
 def getInput():
     # Asks user whether they would like to see stock info
@@ -167,7 +171,7 @@ def getInput():
     return stock.lower()
 
 
-###### ACTIVATION ######
+##### ACTIVATION ######
 
 if __name__ == '__main__':
     main()
@@ -176,4 +180,3 @@ if __name__ == '__main__':
         pricePlot(stockName, multiple=True)
     else:
         pricePlot(stockName)
-    
